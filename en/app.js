@@ -189,14 +189,14 @@ let GameStartedButton = document.getElementById("GameStartedButton");
 GameStartedButton.onclick = () =>{
     GameHasStarted=!GameHasStarted;
 
-    if(GameStartedButton.innerText.includes("End game"))
-        EndGame()
+    if(GameStartedButton.innerText.includes("End Game"))
+        SpeelAfgelopen()
     else{
         CounterTime.innerText = 60;
     Interval = setInterval(() => {
         Number(CounterTime.innerText)> 0 ? CounterTime.innerText = Number(CounterTime.innerText)-1: SpeelAfgelopen();
     }, 1000);
-    StartSetup();
+    Startopstelling();
 }
 }
 
@@ -205,34 +205,34 @@ function Startopstelling() {
     GameStartedButton.style.background = "rgb(240 81 94)";
     CreateMap( NewMap())
 }
-function  EndGame() {
-    GameStartedButton.innerText = "Start game"
+function  SpeelAfgelopen() {
+    GameStartedButton.innerText = "Begin game"
     GameStartedButton.style.background = "rgb(139 139 255)";
     clearInterval(Interval);
-    PrintWinner()
+    PrintGewonnenSpeler()
 }
 
-function PrintWinner(){
-    document.getElementById("Alert").innerHTML = "The game has ended." + (ScorePlayer1==ScorePlayer2? " The score is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : " Player 2 has won");
+function PrintGewonnenSpeler(){
+    document.getElementById("Alert").innerHTML = "Game is over" + (ScorePlayer1==ScorePlayer2? " Game is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
 }
 
 function  NewMap(){
-    let Size = Number(FieldSize.innerText)
-    let Field =  []
-    localStorage.setItem("FieldSize", Size)
-    for (let i1 = 0; i1<Size; i1++){
-        let FieldRow = []
-        for (let i2 = 0; i2<Size; i2++){
+    let Grootte = Number(FieldSize.innerText)
+    let Veld =  []
+    localStorage.setItem("FieldSize",Grootte)
+    for (let i1 = 0; i1<Grootte; i1++){
+        let VeldRij = []
+        for (let i2 = 0; i2<Grootte; i2++){
             if (i1 < 2)
-                FieldRow.length >= Number(localStorage.getItem("FieldSize")) - 2 ? FieldRow.push(1): FieldRow.push(0)
+                VeldRij.length >= Number(localStorage.getItem("FieldSize")) - 2 ? VeldRij.push(1): VeldRij.push(0)
             else if (i1 > Number(localStorage.getItem("FieldSize")) - 3)
-                FieldRow.length === 0 || FieldRow.length === 1 ? FieldRow.push(2): FieldRow.push(0)
+                VeldRij.length === 0 || VeldRij.length === 1 ? VeldRij.push(2): VeldRij.push(0)
             else
-                FieldRow.push(0)
+                VeldRij.push(0)
         }
-        Field.push(FieldRow)
+        Veld.push(VeldRij)
     }
-    return Field
+    return Veld
 }
 
 function UpdateScore() {

@@ -58,7 +58,7 @@ function KlikOpVeldenNietVanSpelers (CoordinateX,CoordinateY,Id){
             }
         } catch (error) {
             try { document.getElementById("Beurt").innerText =Beurt;  } 
-            catch (error) { console.log("Speel is beindiged") }
+            catch (error) { console.log("Game has started") }
             if(Beurt==2){ setTimeout(() => { StartTegenSpeler1()}, 300); }
         }   
        }
@@ -180,19 +180,19 @@ SpeelBegonnenKnop.onclick = () =>{
 }
 
 function Startopstelling() {
-    SpeelBegonnenKnop.innerText = "Eind speel"
+    SpeelBegonnenKnop.innerText = "End Game"
     SpeelBegonnenKnop.style.background = "rgb(240 81 94)";
     VeldAanMaken(NieuweMapAanmaken())
 }
 function  SpeelAfgelopen() {
-    SpeelBegonnenKnop.innerText = "Begin speel"
+    SpeelBegonnenKnop.innerText = "Begin Game"
     SpeelBegonnenKnop.style.background = "rgb(139 139 255)";
     clearInterval(Interval);
     PrintGewonnenSpeler()
 }
 
 function PrintGewonnenSpeler(){
-    document.getElementById("Alert").innerHTML = "Het spel is afgelopen." + (StandSpeler1==StandSpeler2? " Speel stand is gelijk" : StandSpeler1>StandSpeler2?  " Speler 1 heeft gewonen" : " Speler 2 heeft gewonen");
+    document.getElementById("Alert").innerHTML = "The game is over." + (StandSpeler1==StandSpeler2? "The score is tied" : StandSpeler1>StandSpeler2?  " Speler 1 heeft gewonen" : " Speler 2 heeft gewonen");
 }
 
 function NieuweMapAanmaken(){
@@ -254,7 +254,7 @@ function VeldAanMaken(Veld){
     }   
     UpdateStand()
 }
-
+``
 function VeldTemplate(Veld){
      VeldIdes = []
     let VeldInhoud =   ` 
