@@ -5,61 +5,58 @@ using System.Threading.Tasks;
 
 namespace my_new_app
 {
-    // Stapel class is Generieke class
-    public class Stapel<T> { 
-    private Vakje <T> bovensteVakje;   // Wordt gebruikt om de bovensteVakje van een stapel te bewaren.
+    // Stack class is a generic class
+    public class Stack<T>
+    { 
+        private Node<T> topNode; // Used to store the top node of the stack.
 
-        public Stapel()
-    {
-        bovensteVakje = null;
-    }
-
-   
-    // De stapel maakt gebruik van een inner class genaamd Vakje, die een knoop van de stapel voorstelt
-    private class Vakje<T>
-    {
-        public T waarde;
-        public Vakje<T> volgende;
-
-        public Vakje(T waarde)
+        public Stack()
         {
-            this.waarde = waarde;
-            this.volgende = null;
+            topNode = null;
+        }
+
+        // The stack uses an inner class called Node, which represents a node in the stack.
+        private class Node<T>
+        {
+            public T value;
+            public Node<T> next;
+
+            public Node(T value)
+            {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        // Adds a new value to the top of the stack.
+        public void Push(T value)
+        {
+            if (value == null)
+            {
+                throw new InvalidDataException("Stack is empty");
+            }
+            // Here, a Node is created with the given value.
+            Node<T> node = new Node<T>(value);
+            // The current top node is assigned to the next of the new node.
+            node.next = topNode;
+            // The new node is now assigned as the top node.
+            topNode = node;
+        }
+
+        // Retrieves the top value of the stack.
+        public T Pop()
+        {
+            // Checks if the stack is empty by verifying the top node.
+            if (topNode == null)
+            {
+                throw new InvalidOperationException("Stack is empty");
+            }
+            // If the stack is not empty, the value of the top node is saved to return.
+            T poppedValue = topNode.value;
+            // The top node is replaced with the next node in the stack.
+            topNode = topNode.next;
+            // The popped value is returned.
+            return poppedValue;
         }
     }
-
-
-
-    // Voegt een nieuwe waarde toe aan de bovensteVakje van de stapel.
-    public void Duw(T waarde)
-    {
-        if (waarde == null)
-        {
-            throw new InvalidDataException("Stapel is leeg");
-        }
-        // Hier wordt een Vakje gemaakt met meegegeven waarde
-        Vakje<T> Vakje = new Vakje<T>(waarde);
-        // Hier wordt de bovensteVakje waarde aan de volgende Vakje gegeven
-        Vakje.volgende = bovensteVakje;
-        // Hier wordt vervolgens de nieuwe Vakje meegegeven aan de bovensteVakje
-        bovensteVakje = Vakje;
-    }
-
-    // Pakken van de bovensteVakje waarde.
-    public T Pak()
-    {
-        // Hier is check op bovensteVakje of hij leeg is of niet
-        if (bovensteVakje == null)
-        {
-            throw new InvalidOperationException("Stapel is leeg");
-        }
-        // Als de bovensteVakje niet leeg is, wordt de waarde bovensteVakje bewaard voor teruggeven
-        T DeGepaakteTopVakjeWaarde= bovensteVakje.waarde;
-        // Hier wordt de waarde van bovensteVakje vervangen met de volgende Vakje waarde
-        bovensteVakje = bovensteVakje.volgende;
-        // Hier wordt de gepaakte waarde teruggegeven.
-        return DeGepaakteTopVakjeWaarde;
-    }
-}
-    
 }
