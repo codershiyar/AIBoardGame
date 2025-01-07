@@ -6,7 +6,7 @@ body{
 }
 
 #GameStartedButton {
-  background: rgb(255, 139, 211);
+  background: #685ff0;
   border: 0px;
   color: white;
   width: 100%;
@@ -50,10 +50,14 @@ body{
   background: linear-gradient(115deg, white 75%,rgb(255, 139, 211) 43%);
   min-height: 100vh;
 }  */
-
+body {
+  background: linear-gradient(to right, #88368e, #416155);
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+  min-height: 100vh;
+}
 
 .EmptyField {
-  background: rgb(242 242 242);
+  background: rgb(211, 211, 211);
 }
 .Player1, .Player2 {
   background-size: 50px !important;
