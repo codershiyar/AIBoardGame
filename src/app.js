@@ -191,14 +191,14 @@ GameStartedButton.onclick = () => {
     if (GameHasStarted) {
         // End the game
         GameHasStarted = false;
-        GameStartedButton.innerText = "Begin game";
+        GameStartedButton.innerText = "BEGIN GAME";
         GameStartedButton.style.background = "rgb(139 139 255)";
         clearInterval(Interval);
         GameOpeningPage(); // Reset to landing page
     } else {
         // Start the game
         GameHasStarted = true;
-        GameStartedButton.innerText = "End game";
+        GameStartedButton.innerText = "END GAME";
         GameStartedButton.style.background = "rgb(240 81 94)";
         CounterTime.innerText = 60;
         Interval = setInterval(() => {
@@ -213,19 +213,19 @@ GameStartedButton.onclick = () => {
 };
 
 function StartingLineUp(){
-    GameStartedButton.innerText = "End game"
+    GameStartedButton.innerText = "END GAME"
     GameStartedButton.style.background = "rgb(240 81 94)";
     CreateMap( NewMap())
 }
 function  GameOver(){
-    GameStartedButton.innerText = "Begin game"
+    GameStartedButton.innerText = "BEGIN GAME"
     GameStartedButton.style.background = "rgb(139 139 255)";
     clearInterval(Interval);
     PrintWinner();
 }
 
 function PrintWinner(){
-    document.getElementById("Alert").innerHTML = "Game is over " + (ScorePlayer1==ScorePlayer2? " Game is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
+    document.getElementById("Alert").innerHTML = "Game is over" + (ScorePlayer1==ScorePlayer2? " Game is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
 }
 
 function  NewMap(){
@@ -250,7 +250,7 @@ function  NewMap(){
 function EndPlay() {
     clearInterval(Interval); // Stop the timer
     GameHasStarted = false; // Update game state
-    GameStartedButton.innerText = "Begin game";
+    GameStartedButton.innerText = "BEGIN GAME"; 
     GameStartedButton.style.background = "rgb(139 139 255)";
     PrintWinner(); // Display the winner
 }

@@ -1,9 +1,16 @@
-/* Provide sufficient contrast against white background */
+body{
+    font-family: Poppins , sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 #GameStartedButton {
-  background: rgb(139 139 255);
+  background: rgb(255, 139, 211);
   border: 0px;
   color: white;
   width: 100%;
+  font-size: large;
   font-weight: bold;
   padding: 8px;
   margin-top: 10px;
@@ -26,19 +33,24 @@
   width: 50px;
   height: 50px;
   border: 0px;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   margin: 0px 15px;
+}
+
+#Alert {
+  font-size: large;
 }
 
 #App {
   margin: auto;
 }
 
-body {
-  background: linear-gradient(115deg, white 75%,rgb(139 139 255) 43%);
+ /* body {
+  background: linear-gradient(115deg, white 75%,rgb(255, 139, 211) 43%);
   min-height: 100vh;
-}
+}  */
+
 
 .EmptyField {
   background: rgb(242 242 242);
