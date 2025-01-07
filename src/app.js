@@ -99,6 +99,7 @@ function InfectEnemy(Id) {
             console.log(error);
         }
     }
+    UpdateScore();
 }
 
 
@@ -224,7 +225,7 @@ function  GameOver(){
 }
 
 function PrintWinner(){
-    document.getElementById("Alert").innerHTML = "Game is over" + (ScorePlayer1==ScorePlayer2? " Game is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
+    document.getElementById("Alert").innerHTML = "Game is over " + (ScorePlayer1==ScorePlayer2? " Game is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
 }
 
 function  NewMap(){
@@ -246,12 +247,21 @@ function  NewMap(){
     return Fields
 }
 
+function EndPlay() {
+    clearInterval(Interval); // Stop the timer
+    GameHasStarted = false; // Update game state
+    GameStartedButton.innerText = "Begin game";
+    GameStartedButton.style.background = "rgb(139 139 255)";
+    PrintWinner(); // Display the winner
+}
+
+
 function UpdateScore() {
     ScorePlayer1 = document.getElementsByClassName("Player1").length;
     ScorePlayer2 = document.getElementsByClassName("Player2").length;
     document.getElementById("ScorePlayer1").innerText = ScorePlayer1;
     document.getElementById("ScorePlayer2").innerText = ScorePlayer2;
-    if (ScorePlayer1 == 0 || ScorePlayer2 == 0) {
+    if (ScorePlayer1 === 0 || ScorePlayer2 === 0) {
         EndPlay();
     }
 }

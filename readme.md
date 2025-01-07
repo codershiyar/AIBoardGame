@@ -1,6 +1,7 @@
 
 
 <div align="center">
+  <h1>SURVIVAL GRID</h1>
   <h1 align="center">Play Now: Human Intelligence vs. AI Board Game</h1>
    <p> 
    <br>
