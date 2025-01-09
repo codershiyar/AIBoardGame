@@ -2,9 +2,10 @@ let GameHasStarted=  false;
 let FieldMap= [];
 let FieldIds= [];
 let FieldSize = document.getElementById("FieldSize");
+let GameOpeningPage = document.getElementById("App");
+let Interval;
 UpdateLayout()
 let CounterTime = document.getElementById("CounterTime");
-let Interval;
 let ScorePlayer1=4;
 let ScorePlayer2=4;
 function DeselectFields(ClassName){
@@ -109,7 +110,7 @@ function HandleFieldClick(SelectedBoxIsFrom, CoordinateX, CoordinateY, Id) {
         if (SelectedBoxIsFrom === Turn) {
             ClickOnOwnField(CoordinateX, CoordinateY, Id);
         } else {
-            document.getElementById("Alert").innerHTML = "<span class='NotYourTurn'> It's not your Turn </span> <br> It's Player's Turn <span id='Turn'>" + Turn + "</span>";
+            document.getElementById("Alert").innerHTML = "<span class='NotYourTurn'> It's not your terittory </span> <br> It's Player's Turn <span id='Turn'>" + Turn + "</span>";
         }
     } else {
         ClickOnFieldsNotFromPlayers(CoordinateX, CoordinateY, Id);
@@ -255,6 +256,15 @@ function EndPlay() {
     PrintWinner(); // Display the winner
 }
 
+function EndPlaywowinner() {
+    if (!Interval) {
+        console.error("Interval is not initialized!");
+        return;
+    }clearInterval(Interval); // Stop the timer
+    GameHasStarted = false; // Update game state
+    GameStartedButton.innerText = "BEGIN GAME"; 
+    GameStartedButton.style.background = "rgb(139 139 255)";
+}
 
 function UpdateScore() {
     ScorePlayer1 = document.getElementsByClassName("Player1").length;
@@ -350,5 +360,6 @@ function DecreaseFieldSize() {
 }
 
 function UpdateLayout() {
+    EndPlaywowinner();
     document.getElementById("App").style.width = (Number(FieldSize.innerText) * 65) + "px";
 }
