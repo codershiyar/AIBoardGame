@@ -25,18 +25,61 @@ body{
     color: white;
 }
 #App header {
-  justify-content: space-between;
   display: flex;
+  flex-direction: column; /* Stack the rows vertically */
+  align-items: center; /* Center horizontally */
   margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
+
 #App header button {
   width: 50px;
   height: 50px;
   border: 0px;
   font-size: 24px;
   font-weight: bold;
-  margin: 0px 15px;
 }
+
+#TopRow {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center; /* Center the content */
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Add spacing between items */
+  text-align: center; /* Ensure text aligns nicely */
+}
+
+#TopRow span {
+  white-space: nowrap; /* Prevent the text from breaking into multiple lines */
+}
+
+#ClockRow {
+  background: #f05f99c3;
+  width: 110%;
+  display: flex;
+  justify-content: space-between; /* Center the clock and timer */
+  align-items:center ;
+  margin-top: 10px;
+  color: white;
+  border-radius:20px;
+}
+
+#timeLeft{
+  margin-left: 20px;
+  font-size: larger;
+}
+#CounterTime{
+  margin-right: 20px;
+  font-size: larger;
+}
+
+#ClockRow img {
+  margin-top: 10px; /* Add some space between the clock image and time */;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
 
 #Alert {
   font-size: large;
@@ -83,13 +126,31 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  #App header button {
-    margin: 0px 5px; /* Reduce the margin between buttons */
+  #TopRow {
+      gap: 10px; /* Reduce spacing for smaller screens */
+  }
+
+  #ClockRow {
+      margin-top: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #TopRow {
+      gap: 5px; /* Further reduce spacing for very small screens */
+  }
+
+  #ClockRow img {
+      width: 40px; /* Scale down the clock image for smaller screens */
   }
 }
 
 @media screen and (max-width: 480px) {
   #App header button {
-    margin: 0px 3px; /* Further reduce margin for smaller screens */
+      width: 40px; /* Shrink button size on smaller screens */
+      height: 40px;
+  }
+  #TopRow {
+      gap: 5px; /* Reduce spacing for smaller screens */
   }
 }

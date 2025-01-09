@@ -14,19 +14,20 @@
     <div id="App">
 
         <header>
-            <div id="TimerBox">
-                <span>  Field Size: <span id="FieldSize">6</span></span>
+            <div id="TopRow">
+                <span>Field Size: <span id="FieldSize">6</span></span>
                 <button onclick="DecreaseFieldSize()">-</button>
                 <button onClick="IncreaseFieldSize()">+</button>
                 <span>Score <span id="ScorePlayer1">4</span> : <span id="ScorePlayer2">4</span></span>
             </div>
-
-            <div id="TimerBox">
-                <img src="public/timer.png" width=60/>
+        
+            <div id="ClockRow">
+                <span id="timeLeft">TIME LEFT </span>
+                <img src="public/timer.png" width="50" />
                 <span id="CounterTime"></span>
             </div>
-     
         </header>
+
         <main>
             <button id="GameStartedButton" >
                 START GAME
