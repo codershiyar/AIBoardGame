@@ -87,3 +87,9 @@ body {
     margin: 0px 5px; /* Reduce the margin between buttons */
   }
 }
+
+@media screen and (max-width: 480px) {
+  #App header button {
+    margin: 0px 3px; /* Further reduce margin for smaller screens */
+  }
+}
