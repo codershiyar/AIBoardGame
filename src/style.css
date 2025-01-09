@@ -46,10 +46,7 @@ body{
   margin: auto;
 }
 
- /* body {
-  background: linear-gradient(115deg, white 75%,rgb(255, 139, 211) 43%);
-  min-height: 100vh;
-}  */
+
 body {
   background: linear-gradient(to right, #88368e, #416155);
   background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
@@ -83,4 +80,10 @@ body {
   color: white;
   font-weight: bold;
   padding: 6px;
+}
+
+@media screen and (max-width: 768px) {
+  #App header button {
+    margin: 0px 5px; /* Reduce the margin between buttons */
+  }
 }
