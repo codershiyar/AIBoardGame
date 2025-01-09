@@ -105,6 +105,8 @@ function InfectEnemy(Id) {
 
 
 function HandleFieldClick(SelectedBoxIsFrom, CoordinateX, CoordinateY, Id) {
+    if(!GameHasStarted)
+        return;
     let Turn = Number(document.getElementById("Turn").innerText);
     if (SelectedBoxIsFrom > 0) {
         if (SelectedBoxIsFrom === Turn) {
@@ -226,11 +228,12 @@ function  GameOver(){
 }
 
 function PrintWinner(){
-    document.getElementById("Alert").innerHTML = "Game is over" + (ScorePlayer1==ScorePlayer2? " Game is tied" : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
+    document.getElementById("Alert").innerHTML = "Game is over." + (ScorePlayer1==ScorePlayer2? " Game is tied." : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
 }
 
 function  NewMap(){
     let Size = Number(FieldSize.innerText)
+    
     let Fields= []
     localStorage.setItem("FieldSize",Size)
     for (let i1 = 0; i1<Size; i1++){
