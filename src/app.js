@@ -112,7 +112,7 @@ function HandleFieldClick(SelectedBoxIsFrom, CoordinateX, CoordinateY, Id) {
         if (SelectedBoxIsFrom === Turn) {
             ClickOnOwnField(CoordinateX, CoordinateY, Id);
         } else {
-            document.getElementById("Alert").innerHTML = "<span class='NotYourTurn'> It's not your terittory </span> <br> It's Player's Turn <span id='Turn'>" + Turn + "</span>";
+            document.getElementById("Alert").innerHTML = "<span class='NotYourTurn'>  It's not your territory </span> <br> It's Player's Turn <span id='Turn'>" + Turn + "</span>";
         }
     } else {
         ClickOnFieldsNotFromPlayers(CoordinateX, CoordinateY, Id);
@@ -197,6 +197,7 @@ GameStartedButton.onclick = () => {
         GameStartedButton.innerText = "BEGIN GAME";
         GameStartedButton.style.background = "rgb(139 139 255)";
         clearInterval(Interval);
+        PrintWinner();
         GameOpeningPage(); // Reset to landing page
     } else {
         // Start the game
@@ -228,7 +229,7 @@ function  GameOver(){
 }
 
 function PrintWinner(){
-    document.getElementById("Alert").innerHTML = "Game is over." + (ScorePlayer1==ScorePlayer2? " Game is tied." : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : "Player 2 has won");
+    document.getElementById("Alert").innerHTML = "Game is over." + (ScorePlayer1==ScorePlayer2? " Game is tied." : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : " Player 2 has won");
 }
 
 function  NewMap(){
