@@ -2,9 +2,10 @@ let GameHasStarted=  false;
 let FieldMap= [];
 let FieldIds= [];
 let FieldSize = document.getElementById("FieldSize");
+let GameOpeningPage = document.getElementById("App");
+let Interval;
 UpdateLayout()
 let CounterTime = document.getElementById("CounterTime");
-let Interval;
 let ScorePlayer1=4;
 let ScorePlayer2=4;
 function DeselectFields(ClassName){
@@ -99,16 +100,19 @@ function InfectEnemy(Id) {
             console.log(error);
         }
     }
+    UpdateScore();
 }
 
 
 function HandleFieldClick(SelectedBoxIsFrom, CoordinateX, CoordinateY, Id) {
+    if(!GameHasStarted)
+        return;
     let Turn = Number(document.getElementById("Turn").innerText);
     if (SelectedBoxIsFrom > 0) {
         if (SelectedBoxIsFrom === Turn) {
             ClickOnOwnField(CoordinateX, CoordinateY, Id);
         } else {
-            document.getElementById("Alert").innerHTML = "<span class='NotYourTurn'> It's not your Turn </span> <br> It's Player's Turn <span id='Turn'>" + Turn + "</span>";
+            document.getElementById("Alert").innerHTML = "<span class='NotYourTurn'>  It's not your territory </span> <br> It's Player's Turn <span id='Turn'>" + Turn + "</span>";
         }
     } else {
         ClickOnFieldsNotFromPlayers(CoordinateX, CoordinateY, Id);
@@ -186,53 +190,84 @@ function BeginAiAttack(PossibleInfectionsPerBox) {
     }
 }
 let GameStartedButton = document.getElementById("GameStartedButton");
-GameStartedButton.onclick = () =>{
-    GameHasStarted=!GameHasStarted;
-
-    if(GameStartedButton.innerText.includes("Eind speel"))
-        SpeelAfgelopen()
-    else{
+GameStartedButton.onclick = () => {
+    if (GameHasStarted) {
+        // End the game
+        GameHasStarted = false;
+        GameStartedButton.innerText = "BEGIN GAME";
+        GameStartedButton.style.background = "rgb(139 139 255)";
+        clearInterval(Interval);
+        PrintWinner();
+        GameOpeningPage(); // Reset to landing page
+    } else {
+        // Start the game
+        GameHasStarted = true;
+        GameStartedButton.innerText = "END GAME";
+        GameStartedButton.style.background = "rgb(240 81 94)";
         CounterTime.innerText = 60;
-    Interval = setInterval(() => {
-        Number(CounterTime.innerText)> 0 ? CounterTime.innerText = Number(CounterTime.innerText)-1: SpeelAfgelopen();
-    }, 1000);
-    Startopstelling();
-}
-}
+        Interval = setInterval(() => {
+            if (Number(CounterTime.innerText) > 0) {
+                CounterTime.innerText = Number(CounterTime.innerText) - 1;
+            } else {
+                GameOver();
+            }
+        }, 1000);
+        StartingLineUp();
+    }
+};
 
-function Startopstelling() {
-    GameStartedButton.innerText = "Eind speel"
+function StartingLineUp(){
+    GameStartedButton.innerText = "END GAME"
     GameStartedButton.style.background = "rgb(240 81 94)";
     CreateMap( NewMap())
 }
-function  SpeelAfgelopen() {
-    GameStartedButton.innerText = "Begin speel"
+function  GameOver(){
+    GameStartedButton.innerText = "BEGIN GAME"
     GameStartedButton.style.background = "rgb(139 139 255)";
     clearInterval(Interval);
-    PrintGewonnenSpeler()
+    PrintWinner();
 }
 
-function PrintGewonnenSpeler(){
-    document.getElementById("Alert").innerHTML = "Het spel is afgelopen." + (ScorePlayer1==ScorePlayer2? " Speel stand is gelijk" : ScorePlayer1>ScorePlayer2?  " Speler 1 heeft gewonen" : " Speler 2 heeft gewonen");
+function PrintWinner(){
+    document.getElementById("Alert").innerHTML = "Game is over." + (ScorePlayer1==ScorePlayer2? " Game is tied." : ScorePlayer1>ScorePlayer2?  " Player 1 has won" : " Player 2 has won");
 }
 
 function  NewMap(){
-    let Grootte = Number(FieldSize.innerText)
-    let Veld =  []
-    localStorage.setItem("FieldSize",Grootte)
-    for (let i1 = 0; i1<Grootte; i1++){
-        let VeldRij = []
-        for (let i2 = 0; i2<Grootte; i2++){
+    let Size = Number(FieldSize.innerText)
+    
+    let Fields= []
+    localStorage.setItem("FieldSize",Size)
+    for (let i1 = 0; i1<Size; i1++){
+        let Fieldij = []
+        for (let i2 = 0; i2<Size; i2++){
             if (i1 < 2)
-                VeldRij.length >= Number(localStorage.getItem("FieldSize")) - 2 ? VeldRij.push(1): VeldRij.push(0)
+                Fieldij.length >= Number(localStorage.getItem("FieldSize")) - 2 ? Fieldij.push(1): Fieldij.push(0)
             else if (i1 > Number(localStorage.getItem("FieldSize")) - 3)
-                VeldRij.length === 0 || VeldRij.length === 1 ? VeldRij.push(2): VeldRij.push(0)
+                Fieldij.length === 0 || Fieldij.length === 1 ? Fieldij.push(2): Fieldij.push(0)
             else
-                VeldRij.push(0)
+                Fieldij.push(0)
         }
-        Veld.push(VeldRij)
+       Fields.push(Fieldij);
     }
-    return Veld
+    return Fields
+}
+
+function EndPlay() {
+    clearInterval(Interval); // Stop the timer
+    GameHasStarted = false; // Update game state
+    GameStartedButton.innerText = "BEGIN GAME"; 
+    GameStartedButton.style.background = "rgb(139 139 255)";
+    PrintWinner(); // Display the winner
+}
+
+function EndPlaywowinner() {
+    if (!Interval) {
+        console.error("Interval is not initialized!");
+        return;
+    }clearInterval(Interval); // Stop the timer
+    GameHasStarted = false; // Update game state
+    GameStartedButton.innerText = "BEGIN GAME"; 
+    GameStartedButton.style.background = "rgb(139 139 255)";
 }
 
 function UpdateScore() {
@@ -240,7 +275,7 @@ function UpdateScore() {
     ScorePlayer2 = document.getElementsByClassName("Player2").length;
     document.getElementById("ScorePlayer1").innerText = ScorePlayer1;
     document.getElementById("ScorePlayer2").innerText = ScorePlayer2;
-    if (ScorePlayer1 == 0 || ScorePlayer2 == 0) {
+    if (ScorePlayer1 === 0 || ScorePlayer2 === 0) {
         EndPlay();
     }
 }
@@ -251,7 +286,7 @@ function SaveFieldInStack(Value) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ "Value": JSON.stringify(Value) })
     }).then(Request => Request.text()).then(Response => {
-        // console.log("Sent: " + Response);
+        console.log("Sent: " + Response);
     }).catch(error => {
         console.log("Catch error", error);
     });
@@ -265,16 +300,31 @@ function CreateMap(Field) {
     FieldTemplate(Field);
     UpdateScore();
     document.getElementById("Back").onclick = () => {
-        fetch("https://localhost:7102/stack").then(Request => Request.text()).then(Response => {
-            Response = JSON.parse(Response);
-            CreateMap(JSON.parse(Response.Value));
-            // console.log("Back:" + JSON.parse(Response.Value));
-        }).catch(error => {
-            NewMap();
-        });
-    }
+        fetch("https://localhost:7102/stack")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch the stack data");
+                }
+                return response.text();
+            })
+            .then((responseText) => {
+                let responseData = JSON.parse(responseText);
+                if (responseData && responseData.Value) {
+                    CreateMap(JSON.parse(responseData.Value));
+                } else {
+                    console.log("No previous state available in the stack.");
+                    alert("No previous state available.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching previous state:", error);
+                alert("Unable to fetch the previous state. Resetting to a new map.");
+                CreateMap(NewMap());
+            });
+    };
     UpdateScore();
 }
+
 
 function FieldTemplate(Field) {
     FieldIds = [];
@@ -314,5 +364,6 @@ function DecreaseFieldSize() {
 }
 
 function UpdateLayout() {
+    EndPlaywowinner();
     document.getElementById("App").style.width = (Number(FieldSize.innerText) * 65) + "px";
 }

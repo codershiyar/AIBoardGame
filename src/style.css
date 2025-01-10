@@ -1,0 +1,156 @@
+body{
+    font-family: Poppins , sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#GameStartedButton {
+  background: #685ff0;
+  border: 0px;
+  color: white;
+  width: 100%;
+  font-size: large;
+  font-weight: bold;
+  padding: 8px;
+  margin-top: 10px;
+}
+#Board button {
+  width: 50px;
+  height: 50px;
+  border: 0px;
+  margin: 3px;
+}
+#Board {
+    color: white;
+}
+#App header {
+  display: flex;
+  flex-direction: column; /* Stack the rows vertically */
+  align-items: center; /* Center horizontally */
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#App header button {
+  width: 50px;
+  height: 50px;
+  border: 0px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#TopRow {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  justify-content: center; /* Center the content */
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Add spacing between items */
+  text-align: center; /* Ensure text aligns nicely */
+}
+
+#TopRow span {
+  white-space: nowrap; /* Prevent the text from breaking into multiple lines */
+}
+
+#ClockRow {
+  background: #f05f99c3;
+  width: 110%;
+  display: flex;
+  justify-content: space-between; /* Center the clock and timer */
+  align-items:center ;
+  margin-top: 10px;
+  color: white;
+  border-radius:20px;
+}
+
+#timeLeft{
+  margin-left: 20px;
+  font-size: larger;
+}
+#CounterTime{
+  margin-right: 20px;
+  font-size: larger;
+}
+
+#ClockRow img {
+  margin-top: 10px; /* Add some space between the clock image and time */;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+
+#Alert {
+  font-size: large;
+}
+
+#App {
+  margin: auto;
+}
+
+
+body {
+  background: linear-gradient(to right, #88368e, #416155);
+  background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+  min-height: 100vh;
+}
+
+.EmptyField {
+  background: rgb(211, 211, 211);
+}
+.Player1, .Player2 {
+  background-size: 50px !important;
+}
+.Player1 {
+  background: #5b5b5b url("public/superhero.png");
+}
+
+.Player2 {
+  background: rgb(240 240 240) url("public/superhero2.png");
+}
+.AllowedFields1 {
+  background-color: #36b964;
+}
+.AllowedFields2 {
+  background-color: #ffa7a7;
+}
+
+.NotYourTurn {
+  background: #ff6b6b;
+  width: 100%;
+  display: block;
+  color: white;
+  font-weight: bold;
+  padding: 6px;
+}
+
+@media screen and (max-width: 768px) {
+  #TopRow {
+      gap: 10px; /* Reduce spacing for smaller screens */
+  }
+
+  #ClockRow {
+      margin-top: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #TopRow {
+      gap: 5px; /* Further reduce spacing for very small screens */
+  }
+
+  #ClockRow img {
+      width: 40px; /* Scale down the clock image for smaller screens */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #App header button {
+      width: 40px; /* Shrink button size on smaller screens */
+      height: 40px;
+  }
+  #TopRow {
+      gap: 5px; /* Reduce spacing for smaller screens */
+  }
+}
